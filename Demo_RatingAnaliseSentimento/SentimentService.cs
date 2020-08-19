@@ -14,8 +14,8 @@ namespace Demo_RatingAnaliseSentimento
     public static class SentimentService
     {
         //Example Base Url: https://westus.api.cognitive.microsoft.com
-        const string _sentimentAPIBaseUrl = "<Base URL API>";
-        const string _textSentimentAPIKey = "<API Key>";
+        const string _sentimentAPIBaseUrl = "https://brazilsouth.api.cognitive.microsoft.com";
+        const string _textSentimentAPIKey = "40c2eb348a46448ab8343f5f9d2f5224";
         //HttpClient wrapper for accessing the TextAnalytics API
         readonly static TextAnalyticsClient _textAnalyticsApiClient 
             = new TextAnalyticsClient(new ApiKeyServiceClientCredentials(_textSentimentAPIKey))
@@ -33,7 +33,7 @@ namespace Demo_RatingAnaliseSentimento
                 { new MultiLanguageInput(id: "1", text: text) }
             });
             //Get the sentiment results from the TextAnalytics API 
-            var sentimentResult = await _textAnalyticsApiClient.SentimentAsync(request);
+            var sentimentResult = await _textAnalyticsApiClient.SentimentAsync(request).ConfigureAwait(false);
             //Parse the sentiment score 
             return sentimentResult?.Documents?.FirstOrDefault()?.Score;
         }
